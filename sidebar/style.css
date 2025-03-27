@@ -1,0 +1,158 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #f8f8f8;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.sidebar .upper {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .footer {
+    flex: 0 0 auto;
+    padding: 10px;
+    background-color: #ddd;
+    text-align: center;
+}
+
+.sidebar.hidden {
+    transform: translateX(-250px);
+}
+
+@media (min-width: 769px) {
+    .sidebar.visible {
+        transform: translateX(0);
+    }
+
+    .content.shifted {
+        margin-left: 250px;
+        transition: margin-left 0.3s ease;
+    }
+}
+
+.sidebar .logo {
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+.sidebar .header {
+    padding: 10px;
+    background-color: #444;
+    text-align: center;
+}
+
+.sidebar .navlinks {
+    padding: 20px;
+    flex: 1 1 auto;
+}
+
+.sidebar .navlinks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar .navlinks ul li {
+    margin: 10px 0;
+}
+
+.sidebar .navlinks ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 12px;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar .navlinks ul li a:hover {
+    background-color: #eee;
+}
+
+/* Gemeinsame Stile für Toggle-Buttons */
+.toggle-btn {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#toggleBtnSidebar {
+    padding: 10px;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+}
+
+.external-toggle {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    border-radius: 0 25px 25px 0;
+    display: none;
+    z-index: 1001;
+}
+
+@media (min-width: 769px) {
+    .sidebar.hidden+.external-toggle {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .external-toggle {
+        display: block;
+    }
+}
+
+.content {
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+}
+
+@media (min-width: 769px) {
+    .content.shifted {
+        margin-left: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+    }
+
+    .sidebar {
+        transform: translateX(-250px);
+    }
+
+    .sidebar.mobile-visible {
+        transform: translateX(0);
+    }
+}
