@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header/Titelleiste -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-left">
+                <button id="sidebar-toggle" class="icon-button">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="logo">
+                    <i class="fa fa-github"></i>
+                    <span>Chat</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="icon-button">
+                    <i class="fa fa-gear"></i>
+                </button>
+                <button class="icon-button">
+                    <i class="fa fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h3>Chats</h3>
+                <button id="new-chat-sidebar" class="new-chat-button">
+                    <i class="fa fa-plus"></i>
+                    <span>Neuer Chat</span>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <ul class="chat-list">
+                    <li class="chat-item active">
+                        <div class="chat-item-content">
+                            <i class="fa fa-comment"></i>
+                            <span>Allgemeiner Chat</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="chat-more-button" data-chat-id="1">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="chat-item">
+                        <div class="chat-item-content">
+                            <i class="fa fa-comment"></i>
+                            <span>Projektbesprechung</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="chat-more-button" data-chat-id="2">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="chat-item">
+                        <div class="chat-item-content">
+                            <i class="fa fa-comment"></i>
+                            <span>Code-Review</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="chat-more-button" data-chat-id="3">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Chat Area -->
+        <main class="chat-area">
+            <div class="model-selection-container">
+                <div class="model-selection-left">
+                    <button id="new-chat-main" class="new-chat-button hidden">
+                        <i class="fa fa-plus"></i>
+                        <span>Neuer Chat</span>
+                    </button>
+                </div>
+                <div class="model-selection">
+                    <div class="model-dropdown dropdown" data-dropdown="model">
+                        <span class="dropdown-selected">Models</span>
+                        <i class="fa fa-chevron-down"></i>
+                    </div>
+                </div>
+                <div class="model-selection-right"></div>
+            </div>
+
+            <div id="chat-container" class="chat-container">
+                <!-- Hier werden die Chat-Nachrichten angezeigt -->
+                <div id="chat-messages" class="chat-messages">
+                    <!-- Leerer Zustand wird anfangs angezeigt -->
+                    <div id="empty-state" class="empty-state">
+                        <div class="topic-selection">
+                            <h2>Wie kann ich dir heute helfen?</h2>
+                            <div class="topic-buttons">
+                                <button class="topic-button">
+                                    <i class="fa fa-code"></i>
+                                    <span>Code schreiben</span>
+                                </button>
+                                <button class="topic-button">
+                                    <i class="fa fa-bug"></i>
+                                    <span>Fehler beheben</span>
+                                </button>
+                                <button class="topic-button">
+                                    <i class="fa fa-lightbulb"></i>
+                                    <span>Ideen vorschlagen</span>
+                                </button>
+                                <button class="topic-button">
+                                    <i class="fa fa-question-circle"></i>
+                                    <span>Fragen beantworten</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Beispiel-Nachrichten (werden nur gezeigt, wenn der Chat nicht leer ist) -->
+                    <div class="message user-message hidden">
+                        <div class="message-avatar">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">Hallo, kannst du mir bei einer React-Komponente helfen?</div>
+                        </div>
+                    </div>
+
+                    <div class="message bot-message hidden">
+                        <div class="message-avatar">
+                            <i class="fa fa-github"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">Natürlich! Ich helfe dir gerne mit deiner React-Komponente. Was
+                                genau möchtest du erstellen?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+
+                    <textarea id="chat-input" class="chat-input" placeholder="Nachricht an Chat..." rows="1"></textarea>
+                    <button id="upload-button" class="upload-button">
+                        <i class="fa fa-upload"></i>
+                    </button>
+                    <button id="send-button" class="send-button" disabled>
+                        <i class="fa fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="disclaimer">Chat kann Fehler machen. Überprüfe wichtige Informationen.</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Dropdown-Menüs -->
+    <div id="model-dropdown-content" class="dropdown-content" data-dropdown-content="model">
+        <ul class="dropdown-list">
+            <li class="dropdown-item active"><i class="fa fa-check"></i> Chat</li>
+            <li class="dropdown-item">GPT-4</li>
+            <li class="dropdown-item">Claude 3.5</li>
+            <li class="dropdown-item">Llama 3</li>
+        </ul>
+    </div>
+
+    <!-- Chat-Kontextmenü -->
+    <div id="chat-menu" class="context-menu">
+        <ul class="context-menu-list">
+            <li class="context-menu-item" data-action="rename">
+                <i class="fa fa-pencil"></i> Umbenennen
+            </li>
+            <li class="context-menu-item" data-action="delete">
+                <i class="fa fa-trash"></i> Löschen
+            </li>
+            <li class="context-menu-item" data-action="prompts">
+                <i class="fa fa-list-alt"></i> Prompts
+            </li>
+            <li class="context-menu-item" data-action="instructions">
+                <i class="fa fa-info-circle"></i> Anweisungen
+            </li>
+            <li class="context-menu-item" data-action="share">
+                <i class="fa fa-share-alt"></i> Teilen
+            </li>
+            <li class="context-menu-item" data-action="export">
+                <i class="fa fa-download"></i> Exportieren
+            </li>
+        </ul>
+    </div>
+
+    <!-- Rename Dialog -->
+    <div id="rename-dialog" class="dialog">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <h3>Chat umbenennen</h3>
+                <button class="close-dialog"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="dialog-body">
+                <input type="text" id="rename-input" class="dialog-input" placeholder="Neuer Name">
+            </div>
+            <div class="dialog-footer">
+                <button class="dialog-button secondary" id="cancel-rename">Abbrechen</button>
+                <button class="dialog-button primary" id="confirm-rename">Speichern</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Dialog -->
+    <div id="delete-dialog" class="dialog">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <h3>Chat löschen</h3>
+                <button class="close-dialog"><i class="fa fa-times"></i></button>
+            </div>
+            <div class="dialog-body">
+                <p>Möchtest du diesen Chat wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</p>
+            </div>
+            <div class="dialog-footer">
+                <button class="dialog-button secondary" id="cancel-delete">Abbrechen</button>
+                <button class="dialog-button danger" id="confirm-delete">Löschen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Backdrop für Dialoge -->
+    <div id="dialog-backdrop" class="dialog-backdrop"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
